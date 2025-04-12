@@ -1,0 +1,16 @@
+{
+  "name": "lingui-po-sheet-sync",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "seungmin sa (Harang)",
+  "license": "MIT",
+  "repository": "git@github.com:saseungmin/lingui-po-sheet-sync.git",
+  "packageManager": "yarn@4.9.1",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
+  }
+}
