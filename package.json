@@ -1,14 +1,29 @@
 {
-  "name": "lingui-po-sheet-sync",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "i18n-po-sheet-sync",
+  "version": "0.0.1",
+  "description": "Sync PO files to Google Spreadsheet",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup src/index.ts --format cjs --dts"
   },
-  "author": "seungmin sa (Harang)",
+  "author": {
+    "email": "dbd02169@naver.com",
+    "name": "SEUNGMIN SA (Harang)",
+    "url": "https://github.com/saseungmin"
+  },
   "license": "MIT",
-  "repository": "git@github.com:saseungmin/lingui-po-sheet-sync.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saseungmin/i18n-po-sheet-sync.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "email": "dbd02169@naver.com",
+    "url": "https://github.com/saseungmin/i18n-po-sheet-sync/issues"
+  },
   "packageManager": "yarn@4.9.1",
   "dependencies": {
     "google-auth-library": "^9.15.1",
@@ -17,7 +32,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@changesets/cli": "^2.28.1",
     "@types/node": "^22.10.0",
+    "tsup": "^8.4.0",
     "typescript": "^5.8.3"
   }
 }
