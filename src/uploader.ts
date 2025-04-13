@@ -51,7 +51,6 @@ export class POUploader {
       createMissingItems: true,
       updateExistingItems: true,
       batchSize: 100,
-      clearSheet: false,
       applyConditionalFormatting: false,
     }
   ): Promise<UploadResult[]> {

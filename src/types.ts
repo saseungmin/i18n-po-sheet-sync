@@ -48,7 +48,6 @@ export interface UploadOptions {
   createMissingItems?: boolean;
   updateExistingItems?: boolean;
   batchSize?: number;
-  clearSheet?: boolean;
   applyConditionalFormatting?: boolean;
   emptyColor?: string;
   preserveExistingTranslations?: boolean;
