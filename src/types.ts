@@ -1,0 +1,71 @@
+import type { JWTOptions } from "google-auth-library";
+import type { GoogleSpreadsheetRow } from "google-spreadsheet";
+import type pofile from "pofile";
+
+export type Language = string;
+
+export type ServiceAccount = Omit<JWTOptions, "scopes">;
+
+export interface RGBColor {
+  r: number;
+  g: number;
+  b: number;
+}
+
+export interface I18nSyncConfig {
+  serviceAccount: ServiceAccount;
+  spreadsheetId: string;
+  languages: Language[];
+  poFilesBasePath: string;
+  sheetIndex?: number;
+}
+
+export interface HeaderMapping {
+  msgid: string;
+  msgctxt?: string;
+  references?: string;
+  comments?: string;
+  extractedComments?: string;
+}
+
+export type HeaderMappingValue = NonNullable<
+  HeaderMapping[keyof HeaderMapping]
+>;
+
+export type Row = Record<HeaderMappingValue, string>;
+
+export type SheetRow = GoogleSpreadsheetRow<Row>;
+
+export type POItem = InstanceType<typeof pofile.Item>;
+
+export interface ExportOptions {
+  filterMissingTranslations?: boolean;
+  preserveExistingItems?: boolean;
+  pluralFormsByLanguage?: Record<Language, string>;
+}
+
+export interface UploadOptions {
+  createMissingItems?: boolean;
+  updateExistingItems?: boolean;
+  batchSize?: number;
+  clearSheet?: boolean;
+  applyConditionalFormatting?: boolean;
+  emptyColor?: string;
+  preserveExistingTranslations?: boolean;
+}
+
+export interface ExportResult {
+  language: Language;
+  totalItems: number;
+  updatedItems: number;
+  removedItems: number;
+  filePath: string;
+}
+
+export interface UploadResult {
+  language?: Language;
+  totalItems: number;
+  addedItems: number;
+  updatedItems: number;
+  status?: "success" | "failed";
+}
