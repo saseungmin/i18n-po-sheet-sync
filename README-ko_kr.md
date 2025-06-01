@@ -31,7 +31,7 @@ yarn add i18n-po-sheet-sync
 ### 기본 설정
 
 ```typescript
-import I18nPOSync from 'i18n-po-sheet-sync';
+import I18nPOSheetSync from 'i18n-po-sheet-sync';
 import { join } from 'path';
 
 // 설정
@@ -39,14 +39,14 @@ const config = {
   serviceAccount: {
     email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
     key: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY,
-    sheet_id: 'GOOGLE_SHEET_ID'
   },
+  spreadsheetId: 'GOOGLE_SHEET_ID'
   languages: ['ko', 'en', 'ja', 'zh'],
   poFilesBasePath: join(__dirname, 'locale/locales')
 };
 
 // 인스턴스 생성
-const i18nSync = new I18nPOSync(config);
+const i18nSync = new I18nPOSheetSync(config);
 ```
 
 ### Google 스프레드시트에서 PO 파일로 내보내기
