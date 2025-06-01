@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.ts --format cjs --dts",
-    "publish": "yarn run build && changeset version && changeset publish"
+    "publish-packages": "yarn run build && changeset version && changeset publish"
   },
   "author": {
     "email": "dbd02169@naver.com",
