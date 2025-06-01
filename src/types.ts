@@ -39,8 +39,23 @@ export type SheetRow = GoogleSpreadsheetRow<Row>;
 export type POItem = InstanceType<typeof pofile.Item>;
 
 export interface ExportOptions {
+  /**
+   * Filter out missing translations
+   * @default false
+   */
   filterMissingTranslations?: boolean;
+  /**
+   * Preserve existing items
+   * @default false
+   */
   preserveExistingItems?: boolean;
+  /**
+   * Plural forms by language
+   * @default {
+   *   ko: "nplurals=1; plural=0;",
+   *   en: "nplurals=2; plural=(n != 1);",
+   * }
+   */
   pluralFormsByLanguage?: Record<Language, string>;
 }
 
