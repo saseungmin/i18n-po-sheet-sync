@@ -20,6 +20,7 @@ import type {
   SheetRow,
   UploadOptions,
   UploadResult,
+  UploadWithResetOptions,
 } from "./types";
 
 export class POUploader {
@@ -111,7 +112,7 @@ export class POUploader {
    */
   async uploadFromPOFilesWithReset(
     spreadsheet: GoogleSpreadsheet,
-    options: UploadOptions = {
+    options: UploadWithResetOptions = {
       applyConditionalFormatting: true,
       emptyColor: "#FFEBEE",
     }
@@ -131,9 +132,21 @@ export class POUploader {
       let existingData: Record<string, Record<string, string>> = {};
 
       if (options.preserveExistingTranslations) {
-        const rows = await sheet.getRows<Row>();
+        try {
+          const rows = await sheet.getRows<Row>();
 
-        existingData = this.buildExistingDataMap(rows);
+          existingData = this.buildExistingDataMap(rows);
+        } catch (error: unknown) {
+          const errorMessage =
+            error instanceof Error ? error.message : String(error);
+
+          if (errorMessage.includes("No values in the header row")) {
+            console.log("No header row found, will create new headers");
+            existingData = {};
+          } else {
+            throw error;
+          }
+        }
       }
 
       // 모든 PO 파일에서 번역 데이터 수집
@@ -143,10 +156,22 @@ export class POUploader {
 
       await sheet.clear();
 
-      const headerKeys = Object.keys(this.headerMapping).filter(
-        (key) => this.headerMapping[key as keyof HeaderMapping]
+      const sheetHeaderRow = Object.values(this.headerMapping);
+
+      const msgid = sheetHeaderRow.filter(
+        (value) => value === this.headerMapping.msgid
       );
-      await sheet.setHeaderRow(headerKeys);
+      const otherHeaders = sheetHeaderRow.filter(
+        (value) => value !== this.headerMapping.msgid
+      );
+
+      const headerKeysRow = [
+        ...msgid,
+        ...this.config.languages,
+        ...otherHeaders,
+      ];
+
+      await sheet.setHeaderRow(headerKeysRow);
 
       const rowsToAdd = this.prepareRowsToAdd(allTranslations);
 

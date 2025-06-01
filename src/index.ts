@@ -1,7 +1,7 @@
 import { getSpreadsheetDocument } from "./auth";
 import { DEFAULT_HEADER_MAPPING } from "./constants";
 import { POExporter } from "./exporter";
-import {
+import type {
   ExportOptions,
   ExportResult,
   HeaderMapping,
@@ -14,10 +14,11 @@ import {
   SheetRow,
   UploadOptions,
   UploadResult,
+  UploadWithResetOptions,
 } from "./types";
 import { POUploader } from "./uploader";
 
-export {
+export type {
   ExportOptions,
   ExportResult,
   HeaderMapping,
@@ -32,7 +33,7 @@ export {
   UploadResult,
 };
 
-export class I18nPOSheetSync {
+class I18nPOSheetSync {
   private config: I18nSyncConfig;
   private headerMapping: HeaderMapping;
 
@@ -71,9 +72,11 @@ export class I18nPOSheetSync {
 
   /**
    * Upload data from PO files to Google Spreadsheet (Bulk update after sheet reset)
-   * @param options Upload options
+   * @param options Upload with reset options
    */
-  async uploadFromPOWithReset(options?: UploadOptions): Promise<UploadResult> {
+  async uploadFromPOWithReset(
+    options?: UploadWithResetOptions
+  ): Promise<UploadResult> {
     const spreadsheet = await getSpreadsheetDocument(
       this.config.spreadsheetId,
       this.config.serviceAccount
