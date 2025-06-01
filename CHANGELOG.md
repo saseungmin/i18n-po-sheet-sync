@@ -1,5 +1,11 @@
 # i18n-po-sheet-sync
 
+## 1.1.1
+
+### Patch Changes
+
+- 10129be: fix: prevent data loss when exporting to PO files with existing values
+
 ## 1.1.0
 
 ### Minor Changes
