@@ -40,7 +40,7 @@ const config = {
     email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
     key: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY,
   },
-  spreadsheetId: 'GOOGLE_SHEET_ID'
+  spreadsheetId: 'GOOGLE_SHEET_ID',
   languages: ['ko', 'en', 'ja', 'zh'],
   poFilesBasePath: join(__dirname, 'locale/locales')
 };
