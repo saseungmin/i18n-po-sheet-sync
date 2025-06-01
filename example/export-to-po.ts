@@ -3,8 +3,8 @@ import i18nSync from "./i18nSync";
 async function exportToPO() {
   try {
     const result = await i18nSync.exportToPO({
-      filterMissingTranslations: true,
-      preserveExistingItems: true,
+      filterMissingTranslations: false,
+      preserveExistingItems: false,
     });
 
     console.log("Upload with reset completed:", result);
