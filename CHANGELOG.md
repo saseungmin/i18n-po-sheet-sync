@@ -1,5 +1,11 @@
 # i18n-po-sheet-sync
 
+## 1.0.2
+
+### Patch Changes
+
+- cac60c8: docs: fix basic configuration example
+
 ## 1.0.1
 
 ### Patch Changes
