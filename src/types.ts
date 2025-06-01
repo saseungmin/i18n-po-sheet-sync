@@ -53,6 +53,23 @@ export interface UploadOptions {
   preserveExistingTranslations?: boolean;
 }
 
+export interface UploadWithResetOptions {
+  /**
+   * Apply conditional formatting to empty translation cells
+   * @default true
+   */
+  applyConditionalFormatting?: boolean;
+  /**
+   * Background color for empty cells (HEX code)
+   * @default "#FFEBEE"
+   */
+  emptyColor?: string;
+  /**
+   * Preserve existing translations
+   */
+  preserveExistingTranslations?: boolean;
+}
+
 export interface ExportResult {
   language: Language;
   totalItems: number;
