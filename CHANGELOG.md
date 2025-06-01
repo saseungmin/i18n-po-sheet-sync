@@ -1,5 +1,11 @@
 # i18n-po-sheet-sync
 
+## 1.1.0
+
+### Minor Changes
+
+- cc5bf26: fix: handle missing sheet headers in uploadFromPOWithReset
+
 ## 1.0.2
 
 ### Patch Changes
