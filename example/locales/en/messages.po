@@ -1,0 +1,269 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-03-16 19:54+0900\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-05-27T09:31:38.555Z\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: app/screens/profile/_components/ProfileHomeHeader.tsx:141
+#: app/screens/channel/_components/ChannelHomeHeader.tsx:202
+#: app/components/common/Post/FeedPost/FeedPost.tsx:177
+#: app/components/common/Post/FeedPost/FeedPost.tsx:234
+#: app/components/common/Post/CommunityPost/CommunityPost.tsx:242
+#: app/components/common/Post/CommunityPost/CommunityPost.tsx:253
+msgid "...더보기"
+msgstr "...See more"
+
+#. placeholder {0}: channel?.name
+#: app/screens/channel/ChannelNoticeDetailScreen.tsx:229
+msgid "{0} 채널 공지 확인하러 가기"
+msgstr "Check out {0} channel notice"
+
+#. placeholder {0}: `@${selectedUserTag}`
+#: app/screens/profile/BlockUserListScreen.tsx:122
+msgid ""
+"{0}님을\n"
+"차단 해제하시겠어요?"
+msgstr "Unblock {0}?"
+
+#: app/components/community/CommunityHomeHeaderSection.tsx:77
+#: app/components/Channel/EditTabs/CommunityEditTab.tsx:45
+msgid "{channelName}님과 팬들을 위한 프라이빗한 커뮤니티입니다."
+msgstr "{channelName} and their fans' private community."
+
+#: app/screens/channel/_components/ChannelHomeHeader.tsx:230
+#: app/components/Channel/Tabs/ChannelIntroductionTab.tsx:56
+msgid "{count}명"
+msgstr "{count} people"
+
+#: app/utils/getRelativeTime.ts:34
+msgid "{diffInDays, plural, one {#일 전} other {#일 전}}"
+msgstr "{diffInDays, plural, one {# day ago} other {# days ago}}"
+
+#: app/utils/getRelativeTime.ts:27
+msgid "{diffInHours, plural, one {#시간 전} other {#시간 전}}"
+msgstr "{diffInHours, plural, one {# hour ago} other {# hours ago}}"
+
+#: app/utils/getRelativeTime.ts:20
+msgid "{diffInMinutes, plural, one {#분 전} other {#분 전}}"
+msgstr "{diffInMinutes, plural, one {# minute ago} other {# minutes ago}}"
+
+#: app/components/payments/PaymentSummary.tsx:32
+msgid "{displayPaymentType} 요약"
+msgstr "{displayPaymentType} Summary"
+
+#: app/components/payments/PaymentSummary.tsx:51
+msgid "{displayPaymentType}일"
+msgstr "{displayPaymentType} days"
+
+#: app/components/auth/EmailConfirmCodeForm.tsx:136
+msgid "{emailInput}으로 인증코드가 발송되었습니다. 이메일을 확인해 주세요."
+msgstr "Verification code has been sent to {emailInput}. Please check your email."
+
+#: app/components/common/Content/ContentTypeBadge.tsx:65
+msgid "{imageCount, plural, one {#장} other {#장}}"
+msgstr "{imageCount, plural, one {# image} other {# images}}"
+
+#: app/components/common/Content/ContentTypeBadge.tsx:53
+msgid "{readingMinutes, plural, one {#분} other {#분}}"
+msgstr "{readingMinutes, plural, one {# minute} other {# minutes}}"
+
+#. placeholder {0}: comment?.user_tag
+#: app/screens/feed/FeedCommentDetailScreen.tsx:256
+#: app/screens/contents/ContentsCommentDetailScreen.tsx:250
+#: app/screens/community/CommunityPostCommentDetailScreen.tsx:259
+#: app/screens/channel/ChannelNoticeCommentDetailScreen.tsx:250
+#: app/components/common/Comment/CommentModal.tsx:115
+#: app/components/common/Comment/CommentList.tsx:72
+msgid "@{0}님의 댓글 확인하러 가기"
+msgstr "Check out @{0}'s comment"
+
+#. placeholder {0}: community?.user_tag
+#. placeholder {0}: item?.user_tag
+#: app/screens/community/CommunityDetailScreen.tsx:266
+#: app/components/common/Post/CommunityPost/CommunityPost.tsx:208
+msgid "@{0}님의 커뮤니티 글 확인하러 가기"
+msgstr "Check out @{0}'s community post"
+
+#. placeholder {0}: videoContents?.user_tag
+#. placeholder {0}: audioContents?.user_tag
+#. placeholder {0}: imageContents?.user_tag
+#: app/screens/contents/VideoContentsScreen.tsx:128
+#: app/screens/contents/PodcastContentsScreen.tsx:407
+#: app/screens/contents/ImageContentsScreen.tsx:120
+#: app/screens/contents/ArticleContentsScreen.tsx:134
+msgid "@{0}님의 콘텐츠 확인하러 가기"
+msgstr "Check out @{0}'s content"
+
+#. placeholder {0}: feed?.user_tag
+#. placeholder {0}: item?.user_tag
+#: app/screens/feed/FeedDetailScreen.tsx:240
+#: app/components/common/Post/FeedPost/FeedPost.tsx:160
+msgid "@{0}님의 피드 확인하러 가기"
+msgstr "Check out @{0}'s feed"
+
+#: app/screens/payment/SubscriptionPaymentScreen.tsx:186
+msgid "• 결제일 전에 멤버십을 변경하거나 해지하시면 원하시는 결제 금액으로 변경 가능합니다."
+msgstr "• If you change or cancel your membership before the billing date, you can change to your desired payment amount."
+
+#: app/screens/payment/SubscriptionPaymentScreen.tsx:184
+msgid "• 구독은 매 {period} 자동으로 갱신되며, {periodType} 구독 요금이 인상될 경우 사전에 알려드립니다."
+msgstr "• Your subscription will automatically renew every {period} and you will be notified in advance if the {periodType} subscription fee increases."
+
+#: app/screens/payment/SubscriptionPaymentScreen.tsx:187
+msgid "• 다음 청구일은 {nextBillingDate}입니다."
+msgstr "• Your next billing date is {nextBillingDate}."
+
+#: app/screens/payment/SubscriptionPaymentScreen.tsx:185
+msgid "• 언제든지 설정에서 구독을 취소하실 수 있습니다."
+msgstr "• You can cancel your subscription at any time in settings."
+
+#: app/screens/contents/ContentsScreen.tsx:257
+#: app/components/Channel/Tabs/ChannelHomeTab.tsx:103
+#: app/components/Channel/Tabs/ChannelHomeTab.tsx:109
+msgid "🔥 인기 콘텐츠"
+msgstr "🔥 Hot Content"
+
+#: app/screens/payment/SubscriptionPaymentScreen.tsx:135
+msgid "1년치 후원하기"
+msgstr "Support for 1 year"
+
+#: app/utils/getRelativeTime.ts:41
+msgid "1주 전"
+msgstr "1 week ago"
+
+#: app/screens/profile/AccountDetailsScreen.tsx:108
+msgid ""
+"30일 이내 재로그인 시 계정이 자동으로 복구됩니다.\n"
+"30일 이후에는 모든 데이터가 영구적으로 삭제되며 복구가 불가능합니다."
+msgstr ""
+"If you log in within 30 days, your account will be automatically restored.\n"
+"After 30 days, all data will be permanently deleted and cannot be restored."
+
+#: app/components/auth/SocialSignInButtons.tsx:89
+msgid "Apple 로그인 인증에 실패했습니다."
+msgstr "Failed to authenticate with Apple login."
+
+#: app/components/auth/SocialSignInButtons.tsx:137
+msgid "Google 로그인 인증에 실패했습니다."
+msgstr "Failed to authenticate with Google login."
+
+#: app/components/contents/UploadAudioContents.tsx:296
+msgid "MP3, WAV, M4A, AAC 파일만 지원합니다."
+msgstr "Only MP3, WAV, M4A, AAC files are supported."
+
+#: app/utils/getRelativeTime.ts:44
+msgid "M월 D일"
+msgstr "MMMM D"
+
+#: app/screens/auth/CreateProfileScreen.tsx:247
+msgid "가입하기"
+msgstr "Sign up"
+
+#: app/screens/feed/FeedSearch.tsx:211
+#: app/screens/contents/ContentSearch.tsx:209
+msgid "검색 결과가 없습니다."
+msgstr "No search results found."
+
+#: app/screens/feed/FeedSearch.tsx:184
+#: app/screens/feed/FeedSearch.tsx:201
+#: app/screens/contents/ContentSearch.tsx:177
+msgid "검색어를 입력해주세요."
+msgstr "Please enter a search term."
+
+#: app/screens/contents/ContentsUploadSettingScreen.tsx:307
+#: app/components/CommentInput/CommentInput.tsx:240
+msgid "게시"
+msgstr "Post"
+
+#: app/screens/channel/_components/ChannelHomeHeader.tsx:218
+#: app/components/community/CommunityHomeHeaderSection.tsx:86
+msgid "게시글"
+msgstr "Posts"
+
+#: app/components/common/Post/CreatePostForm.tsx:183
+msgid "게시하기"
+msgstr "Publish"
+
+#: app/components/payments/PaymentSummary.tsx:27
+msgid "결제"
+msgstr "Payment"
+
+#: app/screens/payment/SubscriptionPaymentScreen.tsx:87
+#: app/screens/payment/SubscriptionPaymentScreen.tsx:191
+#: app/screens/payment/SinglePaymentScreen.tsx:61
+msgid "결제하기"
+msgstr "Pay Now"
+
+#: app/components/common/BackNavigationGuard.tsx:29
+msgid "계속 작성"
+msgstr "Continue writing"
+
+#: app/screens/profile/SettingsScreen.tsx:64
+#: app/screens/profile/EditAccountScreen.tsx:55
+#: app/screens/profile/AccountDetailsScreen.tsx:44
+msgid "계정 정보"
+msgstr "Account Information"
+
+#: app/hooks/users/useMyProfileUpdateMutation.ts:30
+msgid "계정 정보 수정에 실패했습니다."
+msgstr "Failed to update account information."
+
+#: app/screens/profile/EditAccountScreen.tsx:76
+msgid "계정 정보가 수정되었습니다."
+msgstr "Account information has been updated."
+
+#: app/hooks/users/useDeleteAccount.ts:31
+msgid "계정 탈퇴에 실패했습니다."
+msgstr "Failed to delete account."
+
+#: app/screens/profile/AccountDetailsScreen.tsx:89
+msgid "계정 탈퇴하기"
+msgstr "Delete Account"
+
+#: app/hooks/users/useDeleteAccount.ts:26
+msgid "계정이 탈퇴되었습니다."
+msgstr "Account has been deleted."
+
+#: app/screens/channel/PinnedFeedsScreen.tsx:48
+#: app/components/Channel/PinnedFeedsHorizontalList.tsx:82
+msgid "고정 피드"
+msgstr "Pinned Feeds"
+
+#: app/components/common/Post/PostDropdownMenu.tsx:83
+msgid "공유하기"
+msgstr "Share"
+
+#: app/screens/channel/ChannelNoticeDetailScreen.tsx:261
+msgid "공지를 삭제하시겠습니까?"
+msgstr "Delete the notice?"
+
+#: app/components/subscription/SubscriptionsBottomSheet.tsx:111
+msgid "구독 가능한 멤버십이 없습니다."
+msgstr "No memberships available for subscription."
+
+#: app/screens/channel/_components/ChannelHomeHeader.tsx:298
+#: app/screens/channel/_components/ChannelHomeHeader.tsx:319
+msgid "구독 오픈 알림 신청"
+msgstr "Request subscription opening notification"
+
+#: app/hooks/channels/useChannelsWaitlistJoinCreateMutation.ts:23
+msgid "구독 오픈 알림 신청에 실패하였습니다."
+msgstr "Failed to request subscription opening notification."
+
+#: app/hooks/channels/useChannelsWaitlistJoinCreateMutation.ts:18
+msgid "구독 오픈 알림 신청이 완료되었습니다."
+msgstr "Subscription opening notification request completed."
+
+#: app/screens/profile/MyMembershipsScreen.tsx:104
+#: app/screens/profile/_components/ProfileHomeHeader.tsx:87
+msgid "구독 중"
+msgstr "Subscribed"
