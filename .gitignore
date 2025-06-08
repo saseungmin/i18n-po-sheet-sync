@@ -10,3 +10,5 @@
 dist
 node_modules
 .env
+
+/example/service-account-auth.json

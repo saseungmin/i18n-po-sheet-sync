@@ -18,6 +18,12 @@
 - Typescript 지원
 - 타 다국어 프레임워크와의 사용 (lingui, i18next)
 
+## 사용 예시 (Example)
+- `i18n-po-sheet-sync`의 사용법은 [example](./example) 폴더를 참고하세요.
+- [locales 폴더](./example/locales/)에는 각 언어별(en, ko 등) PO 파일들이 구성되어 있습니다.
+- `example-account-auth.json`은 Google Spreadsheet에 접근 권한을 가진 서비스 계정 정보의 예시입니다. 실제 사용 시에는 본인의 서비스 계정 정보로 변경하여 사용해주세요.
+- i18n-po-sheet-sync로 관리되는 Google Spreadsheet 예시를 확인하려면 [여기](https://docs.google.com/spreadsheets/d/1BzFBfl9xefXPl4X57NU5aBiE2-eZ6lc2YhN37RSmo3k/edit?usp=sharing)를 클릭하세요.
+
 ## 설치
 
 ```bash
@@ -25,8 +31,6 @@ npm install i18n-po-sheet-sync
 # 또는
 yarn add i18n-po-sheet-sync
 ```
-
-## 사용 방법
 
 ### 기본 설정
 
