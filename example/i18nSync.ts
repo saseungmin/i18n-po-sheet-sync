@@ -1,5 +1,5 @@
+import I18nPOSheetSync from 'i18n-po-sheet-sync';
 import { join } from 'node:path';
-import I18nPOSheetSync from '../src';
 import serviceAccountAuth from './service-account-auth.json';
 
 const i18nSync = new I18nPOSheetSync({
