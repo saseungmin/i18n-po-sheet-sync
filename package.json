@@ -6,7 +6,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "export": "ts-node example/export-to-po.ts",
-    "upload": "ts-node example/upload-with-reset.ts",
+    "upload": "ts-node example/upload-to-po.ts",
+    "upload-with-reset": "ts-node example/upload-with-reset.ts",
     "build": "tsup src/index.ts --format cjs --dts",
     "publish-packages": "yarn run build && changeset version && changeset publish"
   },
