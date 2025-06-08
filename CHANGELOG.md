@@ -1,5 +1,11 @@
 # i18n-po-sheet-sync
 
+## 1.2.0
+
+### Minor Changes
+
+- ec664a0: docs: add usage example with sample code and documentation
+
 ## 1.1.1
 
 ### Patch Changes
