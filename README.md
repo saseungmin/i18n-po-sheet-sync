@@ -18,6 +18,12 @@ The .PO extension is widely used in internationalization and localization (i18n)
 - TypeScript support
 - Usage with Other Multilingual Frameworks (lingui, i18next)
 
+## Example
+- Please refer to the [example](./example) folder for usage instructions of `i18n-po-sheet-sync`.
+- The [locales folder](./example/locales/) contains PO files organized by language (en, ko, etc.).
+- `example-account-auth.json` is an example of service account credentials with access permissions to Google Spreadsheet. Please change it to your own service account credentials when using.
+- To view an example Google Spreadsheet managed by i18n-po-sheet-sync, click [here](https://docs.google.com/spreadsheets/d/1BzFBfl9xefXPl4X57NU5aBiE2-eZ6lc2YhN37RSmo3k/edit?usp=sharing).
+
 ## Installation
 
 ```bash
