@@ -16,7 +16,7 @@
     "upload": "node -r @swc-node/register example/upload-to-po.ts",
     "upload-with-reset": "node -r @swc-node/register example/upload-with-reset.ts",
     "build": "tsdown",
-    "publish-packages": "yarn run build && changeset version && changeset publish"
+    "publish-packages": "bun run build && changeset version && changeset publish"
   },
   "author": {
     "email": "dbd02169@naver.com",
@@ -35,7 +35,7 @@
     "email": "dbd02169@naver.com",
     "url": "https://github.com/saseungmin/i18n-po-sheet-sync/issues"
   },
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "bun@1.2.15",
   "dependencies": {
     "google-auth-library": "^9.15.1",
     "google-spreadsheet": "^4.1.4",

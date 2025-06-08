@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  DEFAULT_YARN_VERSION: "4.9.1"
-
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
@@ -23,20 +20,14 @@ jobs:
         with:
           node-version: 22.x
 
-      - name: Set up Yarn
-        run: |
-          corepack enable
-          yarn set version ${{ env.DEFAULT_YARN_VERSION }}
-          yarn --version
-
       - name: Install Dependencies
-        run: yarn install --immutable
+        run: bun install
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: yarn publish-packages
+          publish: bun run publish-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
