@@ -7,9 +7,9 @@ async function exportToPO() {
       preserveExistingItems: true,
     });
 
-    console.log("Upload with reset completed:", result);
+    console.log("export to po completed:", result);
   } catch (error) {
-    console.error("Upload failed:", error);
+    console.error("export to po failed:", error);
   }
 }
 
