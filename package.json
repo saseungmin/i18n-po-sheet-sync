@@ -1,6 +1,6 @@
 {
   "name": "i18n-po-sheet-sync",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Sync PO files to Google Spreadsheet",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
