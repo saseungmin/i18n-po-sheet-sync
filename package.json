@@ -16,7 +16,7 @@
     "upload": "node -r @swc-node/register example/upload-to-po.ts",
     "upload-with-reset": "node -r @swc-node/register example/upload-with-reset.ts",
     "build": "tsdown",
-    "publish-packages": "yarn run build && changeset version && changeset publish"
+    "publish-packages": "bun run build && changeset version && changeset publish"
   },
   "author": {
     "email": "dbd02169@naver.com",
