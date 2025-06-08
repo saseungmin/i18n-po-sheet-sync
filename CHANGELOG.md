@@ -1,5 +1,11 @@
 # i18n-po-sheet-sync
 
+## 1.2.1
+
+### Patch Changes
+
+- ae71584: chore: fix lint with biome
+
 ## 1.2.0
 
 ### Minor Changes
