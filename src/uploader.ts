@@ -1,15 +1,15 @@
-import * as fs from "node:fs";
-import * as path from "node:path";
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
-import { JWT } from "google-auth-library";
+import { JWT } from 'google-auth-library';
 import type {
   GoogleSpreadsheet,
   GoogleSpreadsheetWorksheet,
-} from "google-spreadsheet";
+} from 'google-spreadsheet';
 
-import pofile from "pofile";
+import pofile from 'pofile';
 
-import { DEFAULT_HEADER_MAPPING } from "./constants";
+import { DEFAULT_HEADER_MAPPING } from './constants';
 import type {
   HeaderMapping,
   I18nSyncConfig,
@@ -21,7 +21,7 @@ import type {
   UploadOptions,
   UploadResult,
   UploadWithResetOptions,
-} from "./types";
+} from './types';
 
 export class POUploader {
   private config: I18nSyncConfig;
@@ -30,7 +30,7 @@ export class POUploader {
 
   constructor(
     config: I18nSyncConfig,
-    headerMapping: HeaderMapping = DEFAULT_HEADER_MAPPING
+    headerMapping: HeaderMapping = DEFAULT_HEADER_MAPPING,
   ) {
     this.config = config;
     this.headerMapping = headerMapping;
@@ -53,14 +53,14 @@ export class POUploader {
       updateExistingItems: true,
       batchSize: 100,
       applyConditionalFormatting: false,
-    }
+    },
   ): Promise<UploadResult[]> {
     const sheetIndex = this.config.sheetIndex || 0;
     const sheet = spreadsheet.sheetsByIndex[sheetIndex];
 
     if (!sheet) {
       throw new Error(
-        `Sheet with index ${sheetIndex} not found in the spreadsheet`
+        `Sheet with index ${sheetIndex} not found in the spreadsheet`,
       );
     }
 
@@ -68,11 +68,11 @@ export class POUploader {
     const headers = sheet.headerValues;
 
     const filteredLanguages = headers.filter((header): header is Language =>
-      this.config.languages.includes(header)
+      this.config.languages.includes(header),
     );
 
     if (filteredLanguages.length === 0) {
-      throw new Error("No configured languages found in spreadsheet headers");
+      throw new Error('No configured languages found in spreadsheet headers');
     }
 
     const rows = await sheet.getRows<Row>();
@@ -95,7 +95,7 @@ export class POUploader {
           lang,
           sheet,
           rowMap,
-          options
+          options,
         );
         results.push(result);
       } catch (error) {
@@ -114,19 +114,19 @@ export class POUploader {
     spreadsheet: GoogleSpreadsheet,
     options: UploadWithResetOptions = {
       applyConditionalFormatting: true,
-      emptyColor: "#FFEBEE",
-    }
+      emptyColor: '#FFEBEE',
+    },
   ): Promise<UploadResult> {
     const sheetIndex = this.config.sheetIndex || 0;
     const sheet = spreadsheet.sheetsByIndex[sheetIndex];
 
     if (!sheet) {
       throw new Error(
-        `Sheet with index ${sheetIndex} not found in the spreadsheet`
+        `Sheet with index ${sheetIndex} not found in the spreadsheet`,
       );
     }
 
-    console.time("Total upload time");
+    console.time('Total upload time');
 
     try {
       let existingData: Record<string, Record<string, string>> = {};
@@ -140,8 +140,8 @@ export class POUploader {
           const errorMessage =
             error instanceof Error ? error.message : String(error);
 
-          if (errorMessage.includes("No values in the header row")) {
-            console.log("No header row found, will create new headers");
+          if (errorMessage.includes('No values in the header row')) {
+            console.log('No header row found, will create new headers');
             existingData = {};
           } else {
             throw error;
@@ -150,19 +150,18 @@ export class POUploader {
       }
 
       // 모든 PO 파일에서 번역 데이터 수집
-      const allTranslations = await this.collectTranslationsFromPOFiles(
-        existingData
-      );
+      const allTranslations =
+        await this.collectTranslationsFromPOFiles(existingData);
 
       await sheet.clear();
 
       const sheetHeaderRow = Object.values(this.headerMapping);
 
       const msgid = sheetHeaderRow.filter(
-        (value) => value === this.headerMapping.msgid
+        (value) => value === this.headerMapping.msgid,
       );
       const otherHeaders = sheetHeaderRow.filter(
-        (value) => value !== this.headerMapping.msgid
+        (value) => value !== this.headerMapping.msgid,
       );
 
       const headerKeysRow = [
@@ -184,20 +183,20 @@ export class POUploader {
           sheet,
           spreadsheet.spreadsheetId,
           this.config.serviceAccount,
-          options.emptyColor || "#FFEBEE"
+          options.emptyColor || '#FFEBEE',
         );
       }
 
-      console.timeEnd("Total upload time");
+      console.timeEnd('Total upload time');
 
       return {
         totalItems: rowsToAdd.length,
         addedItems: rowsToAdd.length,
         updatedItems: 0,
-        status: "success",
+        status: 'success',
       };
     } catch (error) {
-      console.error("Error uploading translations:", error);
+      console.error('Error uploading translations:', error);
       throw error;
     }
   }
@@ -206,7 +205,7 @@ export class POUploader {
    * 여러 PO 파일에서 번역 데이터 수집
    */
   private async collectTranslationsFromPOFiles(
-    existingData: Record<string, Record<string, string>> = {}
+    existingData: Record<string, Record<string, string>> = {},
   ): Promise<Record<string, Record<string, string>>> {
     const allTranslations: Record<string, Record<string, string>> = {};
 
@@ -216,7 +215,7 @@ export class POUploader {
         const poFilePath = path.join(
           this.config.poFilesBasePath,
           lang,
-          "messages.po"
+          'messages.po',
         );
 
         if (!fs.existsSync(poFilePath)) {
@@ -224,7 +223,7 @@ export class POUploader {
           continue;
         }
 
-        const poData = fs.readFileSync(poFilePath, "utf8");
+        const poData = fs.readFileSync(poFilePath, 'utf8');
         const po = pofile.parse(poData);
 
         for (const item of po.items) {
@@ -240,10 +239,10 @@ export class POUploader {
 
           // 번역 값 우선순위: 기존 스프레드시트 번역 > PO 파일 번역
           const existingTranslation = existingData[item.msgid]?.[lang];
-          const poTranslation = item.msgstr[0] || "";
+          const poTranslation = item.msgstr[0] || '';
 
           allTranslations[item.msgid][lang] =
-            existingTranslation || poTranslation || "";
+            existingTranslation || poTranslation || '';
 
           // 메타데이터: PO 파일 값 우선 (기존 스프레드시트 값 무시)
           if (item.msgctxt) {
@@ -251,16 +250,16 @@ export class POUploader {
           }
 
           if (item.references?.length > 0) {
-            allTranslations[item.msgid].reference = item.references.join("\n");
+            allTranslations[item.msgid].reference = item.references.join('\n');
           }
 
           if (item.comments?.length > 0) {
-            allTranslations[item.msgid].comments = item.comments.join("\n");
+            allTranslations[item.msgid].comments = item.comments.join('\n');
           }
 
           if (item.extractedComments?.length > 0) {
             allTranslations[item.msgid].extractedComments =
-              item.extractedComments.join("\n");
+              item.extractedComments.join('\n');
           }
         }
 
@@ -268,7 +267,7 @@ export class POUploader {
       } catch (error) {
         console.warn(
           `Could not process ${lang} PO file:`,
-          (error as Error)?.message
+          (error as Error)?.message,
         );
       }
     }
@@ -280,7 +279,7 @@ export class POUploader {
    * 기존 행 데이터에서 맵 구성
    */
   private buildExistingDataMap(
-    rows: SheetRow[]
+    rows: SheetRow[],
   ): Record<string, Record<string, string>> {
     const existingData: Record<string, Record<string, string>> = {};
 
@@ -293,7 +292,7 @@ export class POUploader {
 
         for (const [key, value] of Object.entries(rowObject)) {
           const mappedKey = this.reverseMapping[key] || key;
-          existingData[msgid][mappedKey] = value || "";
+          existingData[msgid][mappedKey] = value || '';
         }
       }
     }
@@ -305,16 +304,16 @@ export class POUploader {
    * 스프레드시트에 추가할 행 데이터 준비
    */
   private prepareRowsToAdd(
-    translations: Record<string, Record<string, string>>
+    translations: Record<string, Record<string, string>>,
   ): Record<string, string>[] {
     return Object.values(translations).map((translation) => {
       const rowData: Record<string, string> = {};
 
-      rowData[this.headerMapping.msgid] = translation.msgid || "";
+      rowData[this.headerMapping.msgid] = translation.msgid || '';
 
       for (const lang of this.config.languages) {
         if (this.isValidHeader(lang)) {
-          rowData[lang] = translation[lang] || "";
+          rowData[lang] = translation[lang] || '';
         }
       }
 
@@ -356,19 +355,19 @@ export class POUploader {
     language: Language,
     sheet: GoogleSpreadsheetWorksheet,
     rowMap: Map<string, SheetRow>,
-    options: UploadOptions
+    options: UploadOptions,
   ): Promise<UploadResult> {
     const poFilePath = path.join(
       this.config.poFilesBasePath,
       language,
-      "messages.po"
+      'messages.po',
     );
 
     if (!fs.existsSync(poFilePath)) {
       throw new Error(`PO file not found at ${poFilePath}`);
     }
 
-    const poData = fs.readFileSync(poFilePath, "utf8");
+    const poData = fs.readFileSync(poFilePath, 'utf8');
     const po = pofile.parse(poData);
 
     let addedCount = 0;
@@ -379,7 +378,7 @@ export class POUploader {
 
     for (const item of po.items) {
       const msgId = item.msgid;
-      const translation = item.msgstr[0] || "";
+      const translation = item.msgstr[0] || '';
 
       if (rowMap.has(msgId)) {
         if (options.updateExistingItems) {
@@ -401,7 +400,7 @@ export class POUploader {
             item.references &&
             item.references.length > 0
           ) {
-            row?.set(this.headerMapping.references, item.references.join("\n"));
+            row?.set(this.headerMapping.references, item.references.join('\n'));
             needsUpdate = true;
           }
 
@@ -410,7 +409,7 @@ export class POUploader {
             item.comments &&
             item.comments.length > 0
           ) {
-            row?.set(this.headerMapping.comments, item.comments.join("\n"));
+            row?.set(this.headerMapping.comments, item.comments.join('\n'));
             needsUpdate = true;
           }
 
@@ -421,7 +420,7 @@ export class POUploader {
           ) {
             row?.set(
               this.headerMapping.extractedComments,
-              item.extractedComments.join("\n")
+              item.extractedComments.join('\n'),
             );
             needsUpdate = true;
           }
@@ -446,7 +445,7 @@ export class POUploader {
           item.references &&
           item.references.length > 0
         ) {
-          newRow[this.headerMapping.references] = item.references.join("\n");
+          newRow[this.headerMapping.references] = item.references.join('\n');
         }
 
         if (
@@ -454,7 +453,7 @@ export class POUploader {
           item.comments &&
           item.comments.length > 0
         ) {
-          newRow[this.headerMapping.comments] = item.comments.join("\n");
+          newRow[this.headerMapping.comments] = item.comments.join('\n');
         }
 
         if (
@@ -463,7 +462,7 @@ export class POUploader {
           item.extractedComments.length > 0
         ) {
           newRow[this.headerMapping.extractedComments] =
-            item.extractedComments.join("\n");
+            item.extractedComments.join('\n');
         }
 
         rowsToAdd.push(newRow);
@@ -489,7 +488,7 @@ export class POUploader {
       totalItems: po.items.length,
       addedItems: addedCount,
       updatedItems: updatedCount,
-      status: "success",
+      status: 'success',
     };
   }
 
@@ -508,12 +507,12 @@ export class POUploader {
     sheet: GoogleSpreadsheetWorksheet,
     spreadsheetId: string,
     serviceAccountConfig: ServiceAccount,
-    backgroundColor = "#FFEBEE"
+    backgroundColor = '#FFEBEE',
   ): Promise<void> {
     try {
       const serviceAccountAuth = new JWT({
         ...serviceAccountConfig,
-        scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
       });
 
       const headerValues = sheet.headerValues;
@@ -537,7 +536,7 @@ export class POUploader {
                 ],
                 booleanRule: {
                   condition: {
-                    type: "BLANK",
+                    type: 'BLANK',
                   },
                   format: {
                     backgroundColor: this.hexToGoogleColor(backgroundColor),
@@ -560,14 +559,14 @@ export class POUploader {
 
         await serviceAccountAuth.request({
           url: `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
-          method: "POST",
+          method: 'POST',
           data: request.resource,
         });
 
-        console.log("조건부 서식이 성공적으로 적용되었습니다.");
+        console.log('조건부 서식이 성공적으로 적용되었습니다.');
       }
     } catch (error) {
-      console.error("조건부 서식 적용 중 오류 발생:", error);
+      console.error('조건부 서식 적용 중 오류 발생:', error);
     }
   }
 

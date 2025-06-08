@@ -1,6 +1,6 @@
-import { getSpreadsheetDocument } from "./auth";
-import { DEFAULT_HEADER_MAPPING } from "./constants";
-import { POExporter } from "./exporter";
+import { getSpreadsheetDocument } from './auth';
+import { DEFAULT_HEADER_MAPPING } from './constants';
+import { POExporter } from './exporter';
 import type {
   ExportOptions,
   ExportResult,
@@ -15,8 +15,8 @@ import type {
   UploadOptions,
   UploadResult,
   UploadWithResetOptions,
-} from "./types";
-import { POUploader } from "./uploader";
+} from './types';
+import { POUploader } from './uploader';
 
 export type {
   ExportOptions,
@@ -49,7 +49,7 @@ class I18nPOSheetSync {
   async exportToPO(options?: ExportOptions): Promise<ExportResult[]> {
     const spreadsheet = await getSpreadsheetDocument(
       this.config.spreadsheetId,
-      this.config.serviceAccount
+      this.config.serviceAccount,
     );
     const exporter = new POExporter(this.config, this.headerMapping);
 
@@ -63,7 +63,7 @@ class I18nPOSheetSync {
   async uploadFromPO(options?: UploadOptions): Promise<UploadResult[]> {
     const spreadsheet = await getSpreadsheetDocument(
       this.config.spreadsheetId,
-      this.config.serviceAccount
+      this.config.serviceAccount,
     );
     const uploader = new POUploader(this.config, this.headerMapping);
 
@@ -75,11 +75,11 @@ class I18nPOSheetSync {
    * @param options Upload with reset options
    */
   async uploadFromPOWithReset(
-    options?: UploadWithResetOptions
+    options?: UploadWithResetOptions,
   ): Promise<UploadResult> {
     const spreadsheet = await getSpreadsheetDocument(
       this.config.spreadsheetId,
-      this.config.serviceAccount
+      this.config.serviceAccount,
     );
     const uploader = new POUploader(this.config, this.headerMapping);
 
@@ -90,16 +90,16 @@ class I18nPOSheetSync {
    * Apply conditional formatting to empty translation cells
    * @param emptyColor Background color for empty cells (HEX code)
    */
-  async applyConditionalFormatting(emptyColor = "#FFEBEE"): Promise<void> {
+  async applyConditionalFormatting(emptyColor = '#FFEBEE'): Promise<void> {
     const spreadsheet = await getSpreadsheetDocument(
       this.config.spreadsheetId,
-      this.config.serviceAccount
+      this.config.serviceAccount,
     );
     const sheet = spreadsheet.sheetsByIndex[this.config.sheetIndex || 0];
 
     if (!sheet) {
       throw new Error(
-        `Sheet with index ${this.config.sheetIndex || 0} not found`
+        `Sheet with index ${this.config.sheetIndex || 0} not found`,
       );
     }
 
@@ -109,7 +109,7 @@ class I18nPOSheetSync {
       sheet,
       spreadsheet.spreadsheetId,
       this.config.serviceAccount,
-      emptyColor
+      emptyColor,
     );
   }
 }

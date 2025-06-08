@@ -1,4 +1,4 @@
-import i18nSync from "./i18nSync";
+import i18nSync from './i18nSync';
 
 async function uploadToPO() {
   try {
@@ -9,9 +9,9 @@ async function uploadToPO() {
       applyConditionalFormatting: false,
     });
 
-    console.log("Upload to PO completed:", result);
+    console.log('Upload to PO completed:', result);
   } catch (error) {
-    console.error("Upload failed:", error);
+    console.error('Upload failed:', error);
   }
 }
 

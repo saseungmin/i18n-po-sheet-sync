@@ -1,4 +1,4 @@
-import i18nSync from "./i18nSync";
+import i18nSync from './i18nSync';
 
 async function exportToPO() {
   try {
@@ -7,9 +7,9 @@ async function exportToPO() {
       preserveExistingItems: true,
     });
 
-    console.log("export to po completed:", result);
+    console.log('export to po completed:', result);
   } catch (error) {
-    console.error("export to po failed:", error);
+    console.error('export to po failed:', error);
   }
 }
 

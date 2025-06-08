@@ -1,10 +1,10 @@
-import * as path from "node:path";
+import * as path from 'node:path';
 
-import type { GoogleSpreadsheet } from "google-spreadsheet";
-import pofile from "pofile";
+import type { GoogleSpreadsheet } from 'google-spreadsheet';
+import pofile from 'pofile';
 
-import { DEFAULT_HEADER_MAPPING } from "./constants";
-import { loadOrCreatePOFile, savePOFile } from "./po-utils";
+import { DEFAULT_HEADER_MAPPING } from './constants';
+import { loadOrCreatePOFile, savePOFile } from './po-utils';
 import type {
   ExportOptions,
   ExportResult,
@@ -14,7 +14,7 @@ import type {
   POItem,
   Row,
   SheetRow,
-} from "./types";
+} from './types';
 
 export class POExporter {
   private config: I18nSyncConfig;
@@ -22,7 +22,7 @@ export class POExporter {
 
   constructor(
     config: I18nSyncConfig,
-    headerMapping: HeaderMapping = DEFAULT_HEADER_MAPPING
+    headerMapping: HeaderMapping = DEFAULT_HEADER_MAPPING,
   ) {
     this.config = config;
     this.headerMapping = headerMapping;
@@ -33,14 +33,14 @@ export class POExporter {
     options: ExportOptions = {
       filterMissingTranslations: false,
       preserveExistingItems: false,
-    }
+    },
   ): Promise<ExportResult[]> {
     const sheetIndex = this.config.sheetIndex || 0;
     const sheet = spreadsheet.sheetsByIndex[sheetIndex];
 
     if (!sheet) {
       throw new Error(
-        `Sheet with index ${sheetIndex} not found in the spreadsheet`
+        `Sheet with index ${sheetIndex} not found in the spreadsheet`,
       );
     }
 
@@ -48,17 +48,17 @@ export class POExporter {
     const headers = sheet.headerValues;
 
     const filteredLanguages = headers.filter((header): header is Language =>
-      this.config.languages.includes(header)
+      this.config.languages.includes(header),
     );
 
     if (filteredLanguages.length === 0) {
-      throw new Error("No configured languages found in spreadsheet headers");
+      throw new Error('No configured languages found in spreadsheet headers');
     }
 
     const rows = await sheet.getRows<Row>();
 
     if (rows.length === 0) {
-      throw new Error("No data found in spreadsheet");
+      throw new Error('No data found in spreadsheet');
     }
 
     const results: ExportResult[] = [];
@@ -79,12 +79,12 @@ export class POExporter {
   private async processLanguage(
     language: Language,
     rows: SheetRow[],
-    options: ExportOptions
+    options: ExportOptions,
   ): Promise<ExportResult> {
     const poFilePath = path.join(
       this.config.poFilesBasePath,
       language,
-      "messages.po"
+      'messages.po',
     );
 
     const po = loadOrCreatePOFile(poFilePath, language, options);
@@ -133,19 +133,19 @@ export class POExporter {
           this.referencesChanged(
             item,
             rowObject,
-            this.headerMapping.references
+            this.headerMapping.references,
           ) ||
           this.commentsChanged(
             item,
             rowObject,
             this.headerMapping.comments,
-            "comments"
+            'comments',
           ) ||
           this.commentsChanged(
             item,
             rowObject,
             this.headerMapping.extractedComments,
-            "extractedComments"
+            'extractedComments',
           )
         ) {
           updatedCount++;
@@ -165,7 +165,7 @@ export class POExporter {
       item.msgid = msgid;
 
       // Always set msgstr even if empty
-      item.msgstr = [translation || ""];
+      item.msgstr = [translation || ''];
 
       // Update optional fields if available
       this.updateOptionalFields(item, rowObject);
@@ -206,13 +206,13 @@ export class POExporter {
       rowObject[this.headerMapping.references]
     ) {
       const references =
-        rowObject[this.headerMapping.references]?.split("\n") ?? [];
+        rowObject[this.headerMapping.references]?.split('\n') ?? [];
       item.references = references;
     }
 
     if (this.headerMapping.comments && rowObject[this.headerMapping.comments]) {
       const comments =
-        rowObject[this.headerMapping.comments]?.split("\n") ?? [];
+        rowObject[this.headerMapping.comments]?.split('\n') ?? [];
       item.comments = comments;
     }
 
@@ -221,7 +221,7 @@ export class POExporter {
       rowObject[this.headerMapping.extractedComments]
     ) {
       const extractedComments =
-        rowObject[this.headerMapping.extractedComments]?.split("\n") ?? [];
+        rowObject[this.headerMapping.extractedComments]?.split('\n') ?? [];
       item.extractedComments = extractedComments;
     }
   }
@@ -229,13 +229,13 @@ export class POExporter {
   private referencesChanged(
     item: POItem,
     rowObject: Partial<Row>,
-    fieldName?: string
+    fieldName?: string,
   ): boolean {
     if (!fieldName || !rowObject[fieldName]) {
       return false;
     }
 
-    const newReferences = rowObject[fieldName].split("\n");
+    const newReferences = rowObject[fieldName].split('\n');
     return JSON.stringify(item.references) !== JSON.stringify(newReferences);
   }
 
@@ -243,13 +243,13 @@ export class POExporter {
     item: POItem,
     rowObject: Partial<Row>,
     fieldName?: string,
-    itemField: "comments" | "extractedComments" = "comments"
+    itemField: 'comments' | 'extractedComments' = 'comments',
   ): boolean {
     if (!fieldName || !rowObject[fieldName]) {
       return false;
     }
 
-    const newComments = rowObject[fieldName].split("\n");
+    const newComments = rowObject[fieldName].split('\n');
     return JSON.stringify(item[itemField]) !== JSON.stringify(newComments);
   }
 }
