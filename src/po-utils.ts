@@ -51,7 +51,7 @@ export function createNewPOFile(
   po.headers = {
     "POT-Creation-Date": new Date().toISOString(),
     "MIME-Version": "1.0",
-    "Content-Type": "text/plain; charset=UTF-8",
+    "Content-Type": "text/plain; charset=utf-8",
     "Content-Transfer-Encoding": "8bit",
     "X-Generator": "i18n-po-sheet-sync",
     Language: language,

@@ -30,7 +30,10 @@ export class POExporter {
 
   async exportToPOFiles(
     spreadsheet: GoogleSpreadsheet,
-    options: ExportOptions = {}
+    options: ExportOptions = {
+      filterMissingTranslations: false,
+      preserveExistingItems: false,
+    }
   ): Promise<ExportResult[]> {
     const sheetIndex = this.config.sheetIndex || 0;
     const sheet = spreadsheet.sheetsByIndex[sheetIndex];
@@ -167,7 +170,7 @@ export class POExporter {
       // Update optional fields if available
       this.updateOptionalFields(item, rowObject);
 
-      if (isNewItem && !options.preserveExistingItems) {
+      if (!options.preserveExistingItems) {
         newItems.push(item);
       }
     }
