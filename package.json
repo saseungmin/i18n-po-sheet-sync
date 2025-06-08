@@ -4,11 +4,18 @@
   "description": "Sync PO files to Google Spreadsheet",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
-    "export": "ts-node example/export-to-po.ts",
-    "upload": "ts-node example/upload-to-po.ts",
-    "upload-with-reset": "ts-node example/upload-with-reset.ts",
-    "build": "tsup src/index.ts --format cjs --dts",
+    "export": "node -r @swc-node/register example/export-to-po.ts",
+    "upload": "node -r @swc-node/register example/upload-to-po.ts",
+    "upload-with-reset": "node -r @swc-node/register example/upload-with-reset.ts",
+    "build": "tsdown",
     "publish-packages": "yarn run build && changeset version && changeset publish"
   },
   "author": {
@@ -37,9 +44,9 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@changesets/cli": "^2.28.1",
+    "@swc-node/register": "^1.10.10",
     "@types/node": "^22.10.0",
-    "ts-node": "^10.9.2",
-    "tsup": "^8.4.0",
+    "tsdown": "^0.12.7",
     "typescript": "^5.8.3"
   }
 }
