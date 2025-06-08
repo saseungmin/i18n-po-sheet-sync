@@ -1,5 +1,11 @@
 # i18n-po-sheet-sync
 
+## 1.3.1
+
+### Patch Changes
+
+- bb1b28c: fix: include dist folder in npm package
+
 ## 1.3.0
 
 ### Minor Changes
