@@ -11,6 +11,13 @@
       "require": "./dist/index.js"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "README-ko_kr.md",
+    "LICENSE",
+    "package.json"
+  ],
   "scripts": {
     "export": "node -r @swc-node/register example/export-to-po.ts",
     "upload": "node -r @swc-node/register example/upload-to-po.ts",
