@@ -1,5 +1,11 @@
 # i18n-po-sheet-sync
 
+## 1.3.0
+
+### Minor Changes
+
+- 3c3a186: perf: migrate to rust-based toolchain for improved performance
+
 ## 1.2.1
 
 ### Patch Changes
