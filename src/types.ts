@@ -1,10 +1,10 @@
-import type { JWTOptions } from "google-auth-library";
-import type { GoogleSpreadsheetRow } from "google-spreadsheet";
-import type pofile from "pofile";
+import type { JWTOptions } from 'google-auth-library';
+import type { GoogleSpreadsheetRow } from 'google-spreadsheet';
+import type pofile from 'pofile';
 
 export type Language = string;
 
-export type ServiceAccount = Omit<JWTOptions, "scopes">;
+export type ServiceAccount = Omit<JWTOptions, 'scopes'>;
 
 export interface RGBColor {
   r: number;
@@ -98,5 +98,5 @@ export interface UploadResult {
   totalItems: number;
   addedItems: number;
   updatedItems: number;
-  status?: "success" | "failed";
+  status?: 'success' | 'failed';
 }
