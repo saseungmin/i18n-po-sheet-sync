@@ -8,7 +8,7 @@ msgstr ""
 "Language: en\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-05-27T09:31:38.555Z\n"
+"PO-Revision-Date: 2025-06-08T14:30:31.829Z\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Plural-Forms: \n"
@@ -37,7 +37,7 @@ msgstr "Unblock {0}?"
 #: app/components/community/CommunityHomeHeaderSection.tsx:77
 #: app/components/Channel/EditTabs/CommunityEditTab.tsx:45
 msgid "{channelName}님과 팬들을 위한 프라이빗한 커뮤니티입니다."
-msgstr "{channelName} and their fans' private community."
+msgstr "{channelName} and their fans' community."
 
 #: app/screens/channel/_components/ChannelHomeHeader.tsx:230
 #: app/components/Channel/Tabs/ChannelIntroductionTab.tsx:56
