@@ -74,32 +74,10 @@ exportToPO();
 
 ### PO 파일에서 Google 스프레드시트로 업로드
 
-#### 방법 1: 증분 업데이트 (기존 데이터 유지)
-
 ```typescript
-async function uploadToPO() {
+async function uploadFromPO() {
   try {
-    const results = await i18nSync.uploadFromPO({
-      createMissingItems: true, // 새 항목 추가
-      updateExistingItems: true, // 기존 항목 업데이트
-      batchSize: 50, // 배치 처리 크기
-    });
-    
-    console.log('Upload completed:', results);
-  } catch (error) {
-    console.error('Upload failed:', error);
-  }
-}
-
-uploadToPO();
-```
-
-#### 방법 2: 시트 초기화 후 일괄 업데이트
-
-```typescript
-async function uploadWithReset() {
-  try {
-    const result = await i18nSync.uploadFromPOWithReset({
+    const result = await i18nSync.uploadFromPO({
       applyConditionalFormatting: true, // 빈 셀에 배경색 적용
       emptyColor: '#FFEBEE', // 빈 셀 배경색 (연한 빨강)
       preserveExistingTranslations: true, // 기존 번역 보존
@@ -111,7 +89,7 @@ async function uploadWithReset() {
   }
 }
 
-uploadWithReset();
+uploadFromPO();
 ```
 
 #### 조건부 서식만 적용
@@ -160,25 +138,10 @@ applyFormatting();
 
 ### 업로드 옵션 (UploadOptions)
 
-#### 일반 옵션 (모든 업로드 방식 공통)
-
 | 옵션 | 타입 | 기본값 | 설명 |
 |------|------|--------|------|
 | `applyConditionalFormatting` | `boolean` | `false` | 빈 번역 셀에 배경색 적용 여부 |
 | `emptyColor` | `string` | `#FFEBEE` | 빈 번역 셀 배경색 (HEX 코드) |
-
-#### 증분 업데이트 옵션 (uploadFromPO)
-
-| 옵션 | 타입 | 기본값 | 설명 |
-|------|------|--------|------|
-| `createMissingItems` | `boolean` | `true` | 스프레드시트에 없는 항목 생성 여부 |
-| `updateExistingItems` | `boolean` | `true` | 기존 항목 업데이트 여부 |
-| `batchSize` | `number` | `100` | 배치 처리 크기 |
-
-#### 일괄 업데이트 옵션 (uploadFromPOWithReset)
-
-| 옵션 | 타입 | 기본값 | 설명 |
-|------|------|--------|------|
 | `preserveExistingTranslations` | `boolean` | `false` | 기존 번역 값 보존 여부 |
 
 ## Google 스프레드시트 형식
@@ -191,7 +154,6 @@ applyFormatting();
 | goodbye   | 안녕히 가세요 | Goodbye | ... | greeting | src/App.js    | 작별인사 | 로그아웃 시 |
 
 헤더 이름은 `HeaderMapping` 옵션을 통해 변경할 수 있습니다.
-
 
 ## 타 다국어 프레임워크와의 사용
 

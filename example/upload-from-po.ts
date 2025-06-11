@@ -1,17 +1,17 @@
 import i18nSync from './i18nSync';
 
-async function uploadWithReset() {
+async function uploadFromPO() {
   try {
-    const result = await i18nSync.uploadFromPOWithReset({
+    const result = await i18nSync.uploadFromPO({
       applyConditionalFormatting: true,
       emptyColor: '#FFEBEE',
       preserveExistingTranslations: true,
     });
 
-    console.log('Upload with reset completed:', result);
+    console.log('Upload from PO completed:', result);
   } catch (error) {
     console.error('Upload failed:', error);
   }
 }
 
-uploadWithReset();
+uploadFromPO();

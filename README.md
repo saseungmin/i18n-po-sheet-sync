@@ -76,44 +76,22 @@ exportToPO();
 
 ### Upload from PO files to Google Spreadsheet
 
-#### Method 1: Incremental Update (Preserving Existing Data)
-
 ```typescript
-async function uploadToPO() {
+async function uploadFromPO() {
   try {
-    const results = await i18nSync.uploadFromPO({
-      createMissingItems: true, // Add new items
-      updateExistingItems: true, // Update existing items
-      batchSize: 50, // Batch processing size
-    });
-    
-    console.log('Upload completed:', results);
-  } catch (error) {
-    console.error('Upload failed:', error);
-  }
-}
-
-uploadToPO();
-```
-
-#### Method 2: Batch Update After Sheet Reset
-
-```typescript
-async function uploadWithReset() {
-  try {
-    const result = await i18nSync.uploadFromPOWithReset({
+    const result = await i18nSync.uploadFromPO({
       applyConditionalFormatting: true, // Apply background color to empty cells
       emptyColor: '#FFEBEE', // Empty cell background color (light red)
       preserveExistingTranslations: true, // Preserve existing translations
     });
     
-    console.log('Upload with reset completed:', result);
+    console.log('Upload from po completed:', result);
   } catch (error) {
     console.error('Upload failed:', error);
   }
 }
 
-uploadWithReset();
+uploadFromPO();
 ```
 
 #### Apply Conditional Formatting Only
@@ -162,25 +140,10 @@ applyFormatting();
 
 ### Upload Options (UploadOptions)
 
-#### General Options (Common to All Upload Methods)
-
 | Option | Type | Default | Description |
 |------|------|--------|------|
 | `applyConditionalFormatting` | `boolean` | `false` | Whether to apply background color to empty translation cells |
 | `emptyColor` | `string` | `#FFEBEE` | Background color for empty translation cells (HEX code) |
-
-#### Incremental Update Options (uploadFromPO)
-
-| Option | Type | Default | Description |
-|------|------|--------|------|
-| `createMissingItems` | `boolean` | `true` | Whether to create items missing from the spreadsheet |
-| `updateExistingItems` | `boolean` | `true` | Whether to update existing items |
-| `batchSize` | `number` | `100` | Batch processing size |
-
-#### Batch Update Options (uploadFromPOWithReset)
-
-| Option | Type | Default | Description |
-|------|------|--------|------|
 | `preserveExistingTranslations` | `boolean` | `false` | Whether to preserve existing translation values |
 
 ## Google Spreadsheet Format

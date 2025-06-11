@@ -13,14 +13,12 @@ import { DEFAULT_HEADER_MAPPING } from './constants';
 import type {
   HeaderMapping,
   I18nSyncConfig,
-  Language,
   RGBColor,
   Row,
   ServiceAccount,
   SheetRow,
   UploadOptions,
   UploadResult,
-  UploadWithResetOptions,
 } from './types';
 
 export class POUploader {
@@ -44,75 +42,11 @@ export class POUploader {
   }
 
   /**
-   * PO 파일에서 스프레드시트로 데이터 업로드 (개별 항목 업데이트 방식)
+   * PO 파일에서 스프레드시트로 데이터 업로드 (시트 초기화 후 일괄 업데이트 방식)
    */
   async uploadFromPOFiles(
     spreadsheet: GoogleSpreadsheet,
     options: UploadOptions = {
-      createMissingItems: true,
-      updateExistingItems: true,
-      batchSize: 100,
-      applyConditionalFormatting: false,
-    },
-  ): Promise<UploadResult[]> {
-    const sheetIndex = this.config.sheetIndex || 0;
-    const sheet = spreadsheet.sheetsByIndex[sheetIndex];
-
-    if (!sheet) {
-      throw new Error(
-        `Sheet with index ${sheetIndex} not found in the spreadsheet`,
-      );
-    }
-
-    await sheet.loadHeaderRow();
-    const headers = sheet.headerValues;
-
-    const filteredLanguages = headers.filter((header): header is Language =>
-      this.config.languages.includes(header),
-    );
-
-    if (filteredLanguages.length === 0) {
-      throw new Error('No configured languages found in spreadsheet headers');
-    }
-
-    const rows = await sheet.getRows<Row>();
-
-    const rowMap = new Map<string, SheetRow>();
-
-    for (const row of rows) {
-      const msgId = row.get(this.headerMapping.msgid);
-
-      if (msgId) {
-        rowMap.set(msgId, row);
-      }
-    }
-
-    const results: UploadResult[] = [];
-
-    for (const lang of filteredLanguages) {
-      try {
-        const result = await this.processUploadLanguage(
-          lang,
-          sheet,
-          rowMap,
-          options,
-        );
-        results.push(result);
-      } catch (error) {
-        console.error(`Error uploading language ${lang}:`, error);
-        throw error;
-      }
-    }
-
-    return results;
-  }
-
-  /**
-   * PO 파일에서 스프레드시트로 데이터 업로드 (시트 초기화 후 일괄 업데이트 방식)
-   */
-  async uploadFromPOFilesWithReset(
-    spreadsheet: GoogleSpreadsheet,
-    options: UploadWithResetOptions = {
       applyConditionalFormatting: true,
       emptyColor: '#FFEBEE',
     },
@@ -346,158 +280,6 @@ export class POUploader {
    */
   private isValidHeader(header: string): boolean {
     return !!header;
-  }
-
-  /**
-   * 개별 언어 업로드 처리 (증분 업데이트 방식)
-   */
-  private async processUploadLanguage(
-    language: Language,
-    sheet: GoogleSpreadsheetWorksheet,
-    rowMap: Map<string, SheetRow>,
-    options: UploadOptions,
-  ): Promise<UploadResult> {
-    const poFilePath = path.join(
-      this.config.poFilesBasePath,
-      language,
-      'messages.po',
-    );
-
-    if (!fs.existsSync(poFilePath)) {
-      throw new Error(`PO file not found at ${poFilePath}`);
-    }
-
-    const poData = fs.readFileSync(poFilePath, 'utf8');
-    const po = pofile.parse(poData);
-
-    let addedCount = 0;
-    let updatedCount = 0;
-    const batchSize = options.batchSize || 100;
-    const rowsToAdd: Record<string, string>[] = [];
-    const rowsToUpdate: SheetRow[] = [];
-
-    for (const item of po.items) {
-      const msgId = item.msgid;
-      const translation = item.msgstr[0] || '';
-
-      if (rowMap.has(msgId)) {
-        if (options.updateExistingItems) {
-          const row = rowMap.get(msgId);
-          let needsUpdate = false;
-
-          if (row?.get(language) !== translation) {
-            row?.set(language, translation);
-            needsUpdate = true;
-          }
-
-          if (this.headerMapping.msgctxt && item.msgctxt) {
-            row?.set(this.headerMapping.msgctxt, item.msgctxt);
-            needsUpdate = true;
-          }
-
-          if (
-            this.headerMapping.references &&
-            item.references &&
-            item.references.length > 0
-          ) {
-            row?.set(this.headerMapping.references, item.references.join('\n'));
-            needsUpdate = true;
-          }
-
-          if (
-            this.headerMapping.comments &&
-            item.comments &&
-            item.comments.length > 0
-          ) {
-            row?.set(this.headerMapping.comments, item.comments.join('\n'));
-            needsUpdate = true;
-          }
-
-          if (
-            this.headerMapping.extractedComments &&
-            item.extractedComments &&
-            item.extractedComments.length > 0
-          ) {
-            row?.set(
-              this.headerMapping.extractedComments,
-              item.extractedComments.join('\n'),
-            );
-            needsUpdate = true;
-          }
-
-          if (needsUpdate && row) {
-            rowsToUpdate.push(row);
-            updatedCount++;
-          }
-        }
-      } else if (options.createMissingItems) {
-        const newRow: Record<string, string> = {
-          [this.headerMapping.msgid]: msgId,
-          [language]: translation,
-        };
-
-        if (this.headerMapping.msgctxt && item.msgctxt) {
-          newRow[this.headerMapping.msgctxt] = item.msgctxt;
-        }
-
-        if (
-          this.headerMapping.references &&
-          item.references &&
-          item.references.length > 0
-        ) {
-          newRow[this.headerMapping.references] = item.references.join('\n');
-        }
-
-        if (
-          this.headerMapping.comments &&
-          item.comments &&
-          item.comments.length > 0
-        ) {
-          newRow[this.headerMapping.comments] = item.comments.join('\n');
-        }
-
-        if (
-          this.headerMapping.extractedComments &&
-          item.extractedComments &&
-          item.extractedComments.length > 0
-        ) {
-          newRow[this.headerMapping.extractedComments] =
-            item.extractedComments.join('\n');
-        }
-
-        rowsToAdd.push(newRow);
-        addedCount++;
-      }
-
-      if (rowsToUpdate.length >= batchSize) {
-        await this.saveRowBatch(rowsToUpdate);
-        rowsToUpdate.length = 0;
-      }
-    }
-
-    if (rowsToAdd.length > 0) {
-      await sheet.addRows(rowsToAdd);
-    }
-
-    if (rowsToUpdate.length > 0) {
-      await this.saveRowBatch(rowsToUpdate);
-    }
-
-    return {
-      language,
-      totalItems: po.items.length,
-      addedItems: addedCount,
-      updatedItems: updatedCount,
-      status: 'success',
-    };
-  }
-
-  /**
-   * 행 배치 저장
-   */
-  private async saveRowBatch(rows: SheetRow[]): Promise<void> {
-    // 병렬로 행 저장하여 성능 향상
-    await Promise.all(rows.map((row) => row.save()));
   }
 
   /**
