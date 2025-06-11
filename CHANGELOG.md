@@ -1,5 +1,11 @@
 # i18n-po-sheet-sync
 
+## 1.3.2
+
+### Patch Changes
+
+- 3bf472e: docs: add keywords in package.json with npm
+
 ## 1.3.1
 
 ### Patch Changes
