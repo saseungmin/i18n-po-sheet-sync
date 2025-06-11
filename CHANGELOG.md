@@ -1,5 +1,17 @@
 # i18n-po-sheet-sync
 
+## 2.0.0
+
+### Major Changes
+
+- 80b4668: feat!: replace incremental upload with bulk replace strategy
+
+  BREAKING CHANGE: Remove uploadFromPOFiles incremental update method
+
+  - Rename uploadFromPOFilesWithReset to uploadFromPOFiles
+  - Use bulk replace as the single upload strategy
+  - Fixes rate limiting issues and improves performance
+
 ## 1.3.2
 
 ### Patch Changes
