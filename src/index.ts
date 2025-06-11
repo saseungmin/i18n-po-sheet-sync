@@ -14,7 +14,6 @@ import type {
   SheetRow,
   UploadOptions,
   UploadResult,
-  UploadWithResetOptions,
 } from './types';
 import { POUploader } from './uploader';
 
@@ -57,10 +56,10 @@ class I18nPOSheetSync {
   }
 
   /**
-   * Upload data from PO files to Google Spreadsheet (Incremental update method)
+   * Upload data from PO files to Google Spreadsheet (Bulk update after sheet reset)
    * @param options Upload options
    */
-  async uploadFromPO(options?: UploadOptions): Promise<UploadResult[]> {
+  async uploadFromPO(options?: UploadOptions): Promise<UploadResult> {
     const spreadsheet = await getSpreadsheetDocument(
       this.config.spreadsheetId,
       this.config.serviceAccount,
@@ -68,22 +67,6 @@ class I18nPOSheetSync {
     const uploader = new POUploader(this.config, this.headerMapping);
 
     return uploader.uploadFromPOFiles(spreadsheet, options);
-  }
-
-  /**
-   * Upload data from PO files to Google Spreadsheet (Bulk update after sheet reset)
-   * @param options Upload with reset options
-   */
-  async uploadFromPOWithReset(
-    options?: UploadWithResetOptions,
-  ): Promise<UploadResult> {
-    const spreadsheet = await getSpreadsheetDocument(
-      this.config.spreadsheetId,
-      this.config.serviceAccount,
-    );
-    const uploader = new POUploader(this.config, this.headerMapping);
-
-    return uploader.uploadFromPOFilesWithReset(spreadsheet, options);
   }
 
   /**

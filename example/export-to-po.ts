@@ -4,7 +4,7 @@ async function exportToPO() {
   try {
     const result = await i18nSync.exportToPO({
       filterMissingTranslations: false,
-      preserveExistingItems: true,
+      preserveExistingItems: false,
     });
 
     console.log('export to po completed:', result);

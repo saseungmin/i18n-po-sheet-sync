@@ -13,10 +13,31 @@ export interface RGBColor {
 }
 
 export interface I18nSyncConfig {
+  /**
+   * Service account credentials (required)
+   * @example {
+   *   email: serviceAccount.client_email,
+   *   key: serviceAccount.private_key,
+   * }
+   */
   serviceAccount: ServiceAccount;
+  /**
+   * Spreadsheet ID (required)
+   */
   spreadsheetId: string;
+  /**
+   * Languages (required)
+   * @example ['en', 'ko', 'ja']
+   */
   languages: Language[];
+  /**
+   * Base path for PO files (required)
+   * @example join(__dirname, 'locales')
+   */
   poFilesBasePath: string;
+  /**
+   * Sheet index (optional)
+   */
   sheetIndex?: number;
 }
 
@@ -60,15 +81,6 @@ export interface ExportOptions {
 }
 
 export interface UploadOptions {
-  createMissingItems?: boolean;
-  updateExistingItems?: boolean;
-  batchSize?: number;
-  applyConditionalFormatting?: boolean;
-  emptyColor?: string;
-  preserveExistingTranslations?: boolean;
-}
-
-export interface UploadWithResetOptions {
   /**
    * Apply conditional formatting to empty translation cells
    * @default true

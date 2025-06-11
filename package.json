@@ -10,6 +10,12 @@
     "google",
     "spreadsheet",
     "google-spreadsheet",
+    "lingui",
+    "lingui-po-sheet-sync",
+    "lingui-po-sheet-sync-google-spreadsheet",
+    "i18next",
+    "i18next-po-sheet-sync",
+    "i18next-po-sheet-sync-google-spreadsheet",
     "i18n-po-sheet-sync",
     "i18n-po-sheet-sync-google-spreadsheet"
   ],
@@ -31,8 +37,7 @@
   ],
   "scripts": {
     "export": "node -r @swc-node/register example/export-to-po.ts",
-    "upload": "node -r @swc-node/register example/upload-to-po.ts",
-    "upload-with-reset": "node -r @swc-node/register example/upload-with-reset.ts",
+    "upload": "node -r @swc-node/register example/upload-from-po.ts",
     "build": "tsdown",
     "publish-packages": "bun run build && changeset version && changeset publish"
   },
