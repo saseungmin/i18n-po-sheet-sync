@@ -1,5 +1,5 @@
 ---
-"i18n-po-sheet-sync": minor
+"i18n-po-sheet-sync": major
 ---
 
 feat!: replace incremental upload with bulk replace strategy
