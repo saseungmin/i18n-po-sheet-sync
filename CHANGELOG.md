@@ -1,5 +1,11 @@
 # i18n-po-sheet-sync
 
+## 2.0.1
+
+### Patch Changes
+
+- 5447248: chore: update package.json description(npm description)
+
 ## 2.0.0
 
 ### Major Changes
